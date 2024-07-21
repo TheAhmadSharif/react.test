@@ -2,7 +2,35 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Outlet, Routes, Route, Link } from "react-router-dom";
 import './index.css';
-import reportWebVitals from './reportWebVitals';
+
+
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Badge, Container, CssBaseline, Box, Grid, Card } from '@mui/material';
+import { ShoppingCartCheckout } from '@mui/icons-material';
+
+const themeOptions = {
+  typography: {
+    // fontFamily: ['Josefin_Sans', 'sans-serif', 'Domine', 'serif'].join(','),
+    fontFamily: ['sans-serif', 'Domine', 'serif'].join(','),
+    button: {
+      fontSize: 16,
+      fontWeight: 400,
+    },
+  },
+  palette: {
+    background: {
+        default: "#F3F3F3"
+      },
+    primary: {
+      main: '#ff7043',
+    },
+    secondary: {
+      main: '#f4ff81',
+    },
+  },
+};
+const theme = createTheme(themeOptions);
+
 
 
 const data = [
@@ -34,23 +62,22 @@ const data = [
         
         ]
 
-
-
-
-
-
 export function Home() {
   return (
     <>
-     <h1> Ecommerce Shop </h1>
-        <ul className="list d-flex" id="mainMenu">
-          <li><Link  to={`/`}>Home </Link></li>
-          <li><Link  to={`product`}>Product </Link></li>
-          <li><Link  to={`cart`}>Cart </Link></li>
-          
-        </ul>
-
-        <Outlet />
+        <ThemeProvider theme = { theme }>
+        <Container>
+                <h1> Ecommerce Shop </h1>
+                  <Box>
+                  <ul className="list d-flex" id="mainMenu" sx = {{ my: 2}}>
+                    <li><Link  to={`/`}>Home </Link></li>
+                    <li><Link  to={`product`}>Product </Link></li>
+                    <li><Link  to={`cart`}>Cart </Link></li>
+                  </ul>
+                  </Box>
+                  <Outlet />
+            </Container>
+        </ThemeProvider>
     </>
      
   );
@@ -58,27 +85,42 @@ export function Home() {
 export function Product() {
   return (
     <>
-        <h1> Product </h1>
-        <div>
-        {data.map((product) => (
-          <div key={product.id} className="product">
-            <h2>{product.title}</h2>
-            <p>Price: ${product.price.toFixed(2)}</p>
-            <img src={product.images[0]} alt={product.title} style={{height: '120px'}} />
+       <Grid container spacing={4}>
 
-              <div>
-                  Add To Cart
-              </div>
-          </div>
+          <Grid item md={12}>
+          <h1> Product </h1>
+          </Grid>
+          
+          
+                      {data.map((product) => (
+                        <Grid item md={3} key={product.id} className="product">
+                          <Card>
+                          <div>
+
+                                  <img 
+                                  src={`${process.env.PUBLIC_URL}/${product.images[0]}`} 
+                                  alt={product.title} 
+                                  style={{height: '120px'}} 
+                                  />
+
+
+                                      <h2>{product.title}</h2>
+                                      <p>Price: ${product.price.toFixed(2)}</p>
+                                  </div>
 
 
 
-         
-        ))}
-      </div>
 
-
-    
+                                    <div>
+                                        Add To Cart
+                                    </div>
+                          </Card>
+                         
+                        </Grid>
+                      ))}
+                  
+                
+        </Grid>
     </>
       
   );
