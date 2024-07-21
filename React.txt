@@ -9,3 +9,5 @@ npm i -D react-router-dom
 ––––––– Deploy
 
 npm install gh-pages --save-dev
+
+https://github.com/gitname/react-gh-pages
