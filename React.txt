@@ -3,3 +3,9 @@ npx create-react-app react.test
 
 
 npm i -D react-router-dom
+
+
+
+––––––– Deploy
+
+npm install gh-pages --save-dev
